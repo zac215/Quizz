@@ -33,4 +33,8 @@ public class ChoixService {
     public Choix find(Long id) {
         return choixJpaRepository.findById(id).orElse(null);
     }
+
+    public List<Choix> findByQuestionId(Long id){
+        return choixJpaRepository.findByQuestionId(id);
+    };
 }

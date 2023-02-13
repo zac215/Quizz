@@ -27,6 +27,17 @@ public class ChoixRessource {
     private final PartieService partieService;
 
 
+    @GetMapping(value = "/{id}")
+    ResponseEntity<List<ChoixModel>> find(@PathVariable Long id) {
+        List<Choix> choixList = choixService.findByQuestionId(id);
+        List<ChoixModel> result = new ArrayList<>();
+        for (Choix choix : choixList) {
+            result.add(DataMapping.toChoixModel(choix));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
     @PostMapping("/add")
     ResponseEntity<HttpStatus> addChoix(@RequestParam(value = "idQuestion") Long idQuestion, @RequestBody Set<ChoixModel> choixModels) {
         log.info("Insertion de nouveaux choix : {}", choixModels.toString());

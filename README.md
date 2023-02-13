@@ -33,6 +33,8 @@ Pour enregistrer les choix possibles pour une question, on envoie la liste des c
 	
 ]
 
+On obtient la liste des choix possibles pour une question en envoyant une requete de type get sur localhost:8082/api/choix avec en pathvariable l'id de la question
+
 ### Partie
 Pour obtenir une nouvelle partie, on envoie une requête GET sur http://localhost:8082/question.
 Pour jouer une partie on envoie la liste de ses reponses( choix) sur http://localhost:8082/choix/answer avec une requete post avec en parametre l'id de la partie
