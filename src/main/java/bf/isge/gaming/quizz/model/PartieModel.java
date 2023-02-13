@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.List;
 public class PartieModel {
     private Long id;
     private LocalDateTime dateCreation;
-    private int score;
+    private AtomicInteger score;
 
     private List<Question> questions= new ArrayList<>();
 }

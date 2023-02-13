@@ -50,4 +50,14 @@ public class DataMapping implements Serializable {
 
         return partieModel;
     }
+
+    public static Partie fromPartieModel(PartieModel partieModel){
+        Partie partie= new Partie();
+        partie.setId(partieModel.getId());
+        partie.setScore(partieModel.getScore());
+        partie.setDateCreation(partieModel.getDateCreation());
+        partie.setQuestions(partie.getQuestions());
+
+        return partie;
+    }
 }

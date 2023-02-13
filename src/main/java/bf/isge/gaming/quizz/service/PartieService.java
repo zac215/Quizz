@@ -23,7 +23,13 @@ public class PartieService {
         return partieJpaRepository.findWithQuestions(insertedPartie.getId());
         }
 
+    public void update(Partie updatedPartie) {
+        Partie partie= partieJpaRepository.findById(updatedPartie.getId()).orElse(null);
+        if(partie!=null){
+            partie.setScore(updatedPartie.getScore());
+            partieJpaRepository.save(partie);
+        }
 
 
-    }
+    }}
 

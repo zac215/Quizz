@@ -2,7 +2,9 @@ package bf.isge.gaming.quizz.ressource;
 
 import bf.isge.gaming.quizz.domain.Choix;
 import bf.isge.gaming.quizz.model.ChoixModel;
+import bf.isge.gaming.quizz.model.PartieModel;
 import bf.isge.gaming.quizz.service.ChoixService;
+import bf.isge.gaming.quizz.service.PartieService;
 import bf.isge.gaming.quizz.utils.DataMapping;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 public class ChoixRessource {
     private final ChoixService choixService;
+    private final PartieService partieService;
 
 
     @PostMapping("/add")
@@ -36,11 +39,15 @@ public class ChoixRessource {
     }
 
     @PostMapping("/answer")
-    ResponseEntity answer( @RequestBody Set<ChoixModel> choixModels) {
+    ResponseEntity answer(@RequestParam(value = "idQuestion") Long idPartie, @RequestBody Set<ChoixModel> choixModels) {
         List<ChoixModel> choix= new ArrayList<>();
         choixModels.forEach(choixModel -> choix.add(DataMapping.toChoixModel(choixService.find(choixModel.getId()))));
         AtomicInteger score= new AtomicInteger();
         choix.forEach(choix1 -> {if(choix1.isBonChoix()) score.getAndIncrement();});
+        PartieModel partieModel= new PartieModel();
+        partieModel.setId(idPartie);
+        partieModel.setScore(score);
+        partieService.update(DataMapping.fromPartieModel(partieModel));
 
         return ResponseEntity.status(HttpStatus.OK).body("Votre score est de "+ score);
     }

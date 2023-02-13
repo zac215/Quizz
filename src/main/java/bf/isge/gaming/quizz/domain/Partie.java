@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "partie")
@@ -19,7 +20,7 @@ public class Partie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime dateCreation;
-    private int score;
+    private AtomicInteger score;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reponse",
             joinColumns = @JoinColumn(name = "partie_id"),
