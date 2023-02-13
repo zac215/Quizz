@@ -16,7 +16,7 @@ public class DataMapping implements Serializable {
         questionModel.setEnonce(question.getEnonce());
         questionModel.setChoix(question.getChoix());
         return questionModel;
-    };
+    }
 
     public static Question fromQuestionModel(QuestionModel questionModel){
         Question question= new Question();
@@ -24,7 +24,7 @@ public class DataMapping implements Serializable {
         question.setEnonce(questionModel.getEnonce());
         question.setChoix(questionModel.getChoix());
         return question;
-    };
+    }
 
     public static Choix fromChoixModel(ChoixModel choixModel){
         Choix choix= new Choix();
@@ -32,7 +32,14 @@ public class DataMapping implements Serializable {
         choix.setDesignation(choixModel.getDesignation());
         choix.setBonChoix(choixModel.isBonChoix());
         return choix;
-    };
+    }
+    public static ChoixModel toChoixModel(Choix choix){
+        ChoixModel choixModel= new ChoixModel();
+        choixModel.setId(choix.getIdChoix());
+        choixModel.setDesignation(choix.getDesignation());
+        choixModel.setBonChoix(choix.isBonChoix());
+        return choixModel;
+    }
 
     public static PartieModel toPartieModel(Partie partie){
         PartieModel partieModel= new PartieModel();
@@ -42,5 +49,5 @@ public class DataMapping implements Serializable {
         partieModel.setQuestions(partie.getQuestions());
 
         return partieModel;
-    };
+    }
 }

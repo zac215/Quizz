@@ -28,4 +28,9 @@ public class ChoixService {
         List<Choix> c = choixJpaRepository.saveAll(choixList);
         return new HashSet<>(c);
     }
+
+    /*Methode permettant de récupérer un choix */
+    public Choix find(Long id) {
+        return choixJpaRepository.findById(id).orElse(null);
+    }
 }

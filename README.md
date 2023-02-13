@@ -15,7 +15,7 @@ Pour créer une question, envoie le corps de la question sous la forme ci-dessus
 }
 
 ### Choix
-Pour enregistrer les choix possibles pour une question, on envoie la liste des corps des choix sous la forme ci-dessus dans une requête post à localhost:8082/api/choix.
+Pour enregistrer les choix possibles pour une question, on envoie la liste des corps des choix sous la forme ci-dessus dans une requête post à localhost:8082/api/choix/add avec en parametre l'id de la question.
 
 [
 	{

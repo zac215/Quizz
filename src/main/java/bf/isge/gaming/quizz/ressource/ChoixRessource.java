@@ -10,8 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping(value = "/api/choix")
@@ -20,7 +23,8 @@ import java.util.Set;
 public class ChoixRessource {
     private final ChoixService choixService;
 
-    @PostMapping
+
+    @PostMapping("/add")
     ResponseEntity<HttpStatus> addChoix(@RequestParam(value = "idQuestion") Long idQuestion, @RequestBody Set<ChoixModel> choixModels) {
         log.info("Insertion de nouveaux choix : {}", choixModels.toString());
         Set<Choix> choix=new HashSet<>();
@@ -29,5 +33,15 @@ public class ChoixRessource {
         }
         choixService.addChoix(idQuestion, choix);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/answer")
+    ResponseEntity answer( @RequestBody Set<ChoixModel> choixModels) {
+        List<ChoixModel> choix= new ArrayList<>();
+        choixModels.forEach(choixModel -> choix.add(DataMapping.toChoixModel(choixService.find(choixModel.getId()))));
+        AtomicInteger score= new AtomicInteger();
+        choix.forEach(choix1 -> {if(choix1.isBonChoix()) score.getAndIncrement();});
+
+        return ResponseEntity.status(HttpStatus.OK).body("Votre score est de "+ score);
     }
 }
